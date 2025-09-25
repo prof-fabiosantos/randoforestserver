@@ -27,13 +27,14 @@ if __name__ == "__main__":
     api = RandomForestAPI()
     server = ls.LitServer(api)
 
-    # ✅ Habilita CORS
-    server.add_middleware(
+    # ✅ Adiciona middleware CORS diretamente no FastAPI interno
+    server.app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # pode trocar "*" por ["https://randoforestclient.vercel.app"]
+        allow_origins=["*"],  # ou ["https://randoforestclient.vercel.app"]
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
 
     server.run(port=8000)
+
