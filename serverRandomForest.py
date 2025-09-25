@@ -3,7 +3,6 @@ import litserve as ls
 
 class RandomForestAPI(ls.LitAPI):
     def setup(self, device):
-        # load the model saved in above step during training
         with open("model.pkl", "rb") as f:
             self.model = pickle.load(f)
 
@@ -17,6 +16,18 @@ class RandomForestAPI(ls.LitAPI):
 
     def encode_response(self, output):
         return {"class_idx": int(output)}
+
+    # Adicione este método para lidar com CORS
+    def handle_request(self, request, response):
+        # Permite requisições do seu frontend
+        response.headers["Access-Control-Allow-Origin"] = "https://randoforestclient.vercel.app"
+        response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        if request.method == "OPTIONS":
+            response.status_code = 204
+            response.body = b""
+            return response
+        return super().handle_request(request, response)
 
 if __name__ == "__main__":
     api = RandomForestAPI()
