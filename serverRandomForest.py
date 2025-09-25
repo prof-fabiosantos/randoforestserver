@@ -20,7 +20,7 @@ class RandomForestAPI(ls.LitAPI):
     # Adicione este método para lidar com CORS
     def handle_request(self, request, response):
         # Permite requisições do seu frontend
-        response.headers["Access-Control-Allow-Origin"] = "https://randoforestclient.vercel.app"
+        response.headers["Access-Control-Allow-Origin"] = "https://randoforestclient.vercel.app/predictions"
         response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
         response.headers["Access-Control-Allow-Headers"] = "Content-Type"
         if request.method == "OPTIONS":
